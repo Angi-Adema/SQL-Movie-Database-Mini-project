@@ -18,6 +18,7 @@ const db = mysql.createConnection(
     console.log(`Connected to the movie_db database.`)
 );
 
+// Get request to render all the movies in the database.
 app.get('/api/movies', (req, res) => {
     const sql = 'SELECT id, movie_name AS title FROM movies';
 
@@ -33,7 +34,8 @@ app.get('/api/movies', (req, res) => {
     });
 });
 
-app.post('/api/add-movie', ({ body }, res) => {
+// Post request to add a movie to the database.
+app.post('/api/add', ({ body }, res) => {
     const sql = 'INSERT INTO movies (movie_name) VALUE (?)';
 
     const nameParam = [body.movie_name]; 
@@ -50,10 +52,11 @@ app.post('/api/add-movie', ({ body }, res) => {
     });
 });
 
-app.put('/api/update-movie/:id', (req, res) => {
+// Put request to update a movie in the database.
+app.put('/api/update/:id', (req, res) => {
     const sql = 'UPDATE movies SET movie_name = ? WHERE id = ?';
     
-    const params = [req.body.movies, req.params.id];
+    const params = [req.body.movie, req.params.id];
 
     db.query(sql, params, (err, result) => {
         if (err) {
@@ -71,6 +74,7 @@ app.put('/api/update-movie/:id', (req, res) => {
         }
     });
 });
+
 
 app.use((req, res) => {
     res.status(404).end();
