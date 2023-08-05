@@ -33,6 +33,23 @@ app.get('/api/movies', (req, res) => {
     });
 });
 
+app.post('/api/add-movie', ({ body }, res) => {
+    const sql = 'INSERT INTO movies (movie_name) VALUE (?)';
+
+    const nameParam = [body.movie_name]; 
+
+    db.query(sql, nameParam, (err, result) => {
+        if (err) {
+            res.status(400).json({ error: err.message });
+            return;
+        }
+        res.json({
+            message: 'Success!',
+            data: body
+        });
+    });
+});
+
 app.use((req, res) => {
     res.status(404).end();
 });
