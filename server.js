@@ -50,6 +50,28 @@ app.post('/api/add-movie', ({ body }, res) => {
     });
 });
 
+app.put('/api/update-movie/:id', (req, res) => {
+    const sql = 'UPDATE movies SET movie_name = ? WHERE id = ?';
+    
+    const params = [req.body.movies, req.params.id];
+
+    db.query(sql, params, (err, result) => {
+        if (err) {
+            res.status(400).json({ error: err.message });
+        } else if (!result.affectedRows) {
+            res.json({
+                message: 'Movie not found!'
+            });
+        } else {
+            res.json({
+                message: 'Success!',
+                data: req.body,
+                changes: result.affectedRows
+            });
+        }
+    });
+});
+
 app.use((req, res) => {
     res.status(404).end();
 });
