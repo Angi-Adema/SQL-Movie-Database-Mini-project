@@ -75,6 +75,30 @@ app.put('/api/update/:id', (req, res) => {
     });
 });
 
+// Delete route to delete any movies in the database.
+app.delete('/api/delete/:id', (req, res) => {
+    const sql = 'DELETE FROM movies WHERE id = ?';
+
+    const params = [req.params.id];
+
+    db.query(sql, params, (err, result) => {
+        if (err) {
+            res.status(400).json({ error: err.message });
+        } else if (!result) {
+            res.json({
+                message: 'Movie not found!'
+            });
+        } else {
+            res.json({
+                message: 'Deleted!',
+                data: req.body,
+                changes: result
+            });
+        }
+    });
+
+});
+
 
 app.use((req, res) => {
     res.status(404).end();
