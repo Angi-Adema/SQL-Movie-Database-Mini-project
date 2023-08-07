@@ -34,6 +34,24 @@ app.get('/api/movies', (req, res) => {
     });
 });
 
+// Get request to render one movie.
+app.get('/api/movies/:id', (req, res) => {
+    const sql = 'SELECT id = ?, movie_name FROM movies';
+
+    const params = [req.params.id];
+
+    db.query(sql, params, (err, result) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        res.json({
+            message: 'Success!',
+            data: result
+        });
+    });
+});
+
 // Post request to add a movie to the database.
 app.post('/api/add', ({ body }, res) => {
     const sql = 'INSERT INTO movies (movie_name) VALUE (?)';
