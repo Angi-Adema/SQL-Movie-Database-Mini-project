@@ -2,7 +2,7 @@
 
 In this mini-project, you will build Rest API routes for creating, retrieving, and deleting movies from a MySQL database.
 
-![SQL Movie Database Screenshot](./assets/movieDBSS.png);
+![SQL Movie Database Screenshot](./assets/movieDBSS.png)
 
 ## User Stories
 
@@ -41,3 +41,7 @@ In this mini-project, you will build Rest API routes for creating, retrieving, a
 * It's done when the `/api/reviews/:id` route successfully updates a review when tested using Insomnia.
 
 * It's done when the `/api/delete/:id` route deletes a movie when tested using Insomnia.
+
+## Usage
+
+* Run 'npm i' to install the npm package. Then run 'npm start' to start the server. Go into Insomnia and run any of the routes with the proper request selected. For example, run a 'GET' request with the route 'http://localhost:3001/api/movies' to get a list of all the movies.
